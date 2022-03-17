@@ -1,24 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import LoginPage from "./pages/login/LoginPage";
+import {BrowserRouter, Route, Routes, Outlet, Navigate} from "react-router-dom";
+import {ThemeProvider} from "@mui/system";
+import {ridersTheme} from "./util/ridersTheme";
+import SignUpPage from "./pages/signUp/SignUpPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={ridersTheme} >
+          <BrowserRouter>
+              <Routes>
+                  <Route path='/' element={<LoginPage /> } />
+                  <Route path='/sign-up' element={<SignUpPage /> } />
+              </Routes>
+          </BrowserRouter>
+      </ThemeProvider>
   );
 }
 
