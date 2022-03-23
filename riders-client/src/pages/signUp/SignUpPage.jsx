@@ -134,8 +134,7 @@ const SignUpPage = () => {
                         </FormControl>
                         </div>
 
-                        <div style={{display: "flex", justifyContent: 'space-around'}}>
-                        <FormControl margin="normal" sx={{ mt: 2}} variant="outlined">
+                        <FormControl margin="normal" fullWidth sx={{ mt: 2}} variant="outlined">
                             <InputLabel htmlFor="outlined-adornment-password">DNI</InputLabel>
                             <OutlinedInput
                                 required
@@ -146,7 +145,7 @@ const SignUpPage = () => {
                                 label="DNI"
                             />
                         </FormControl>
-                        </div>
+
 
                         <label className={'validationLabel'} id='passwordLabel'>Invalid password or Email</label>
 
@@ -159,11 +158,6 @@ const SignUpPage = () => {
                             Sign Up
                         </Button>
                         <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
                             <Grid item>
                                 <Link href="/" variant="body2">
                                     {"Already registered? Login"}
