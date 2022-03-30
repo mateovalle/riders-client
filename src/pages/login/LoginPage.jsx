@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     Box, Button, Checkbox,
     Container,
@@ -10,10 +10,11 @@ import {
     ThemeProvider, Typography
 } from "@mui/material";
 import logo from '../../assets/ridersLogo.png'
-import ridersTheme from '../../util/ridersTheme'
 import {useEffect, useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import './LoginPage.css'
+import {useMutation} from "@apollo/client";
+import {LOGIN_CALLER} from "../../util/queries/sessionQueries";
 
 const LoginPage = () => {
     const [values, setValues] = useState({
@@ -22,6 +23,7 @@ const LoginPage = () => {
         showPassword: false,
     });
 
+    const [login, {data, loading, error}] = useMutation(LOGIN_CALLER)
     const navigate = useNavigate()
     const  loggedIn = window.localStorage.getItem('token')
 
@@ -46,11 +48,13 @@ const LoginPage = () => {
         event.preventDefault();
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (values.password){
-            //dispatch login
-        }
+            const response = await login({variables: {email: values.email, password: values.password}})
+            const token = response.data.logInCaller.token
+            console.log(token)
+            window.localStorage.setItem('token', token)
+            navigate('/home')
     };
 
 

@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import logo from "../../assets/ridersLogo.png";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {useMutation} from "@apollo/client";
+import {REGISTER_CALLER} from "../../util/queries/sessionQueries";
 
 
 const SignUpPage = () => {
@@ -23,6 +25,8 @@ const SignUpPage = () => {
         dni: '',
         showPassword: false,
     });
+
+    const [registerCaller, {data, loading, error}] = useMutation(REGISTER_CALLER);
 
     const navigate = useNavigate()
     const  loggedIn = window.localStorage.getItem('token')
@@ -50,9 +54,7 @@ const SignUpPage = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (values.password){
-            //dispatch login
-        }
+        registerCaller({variables: {name: values.name, surname: values.surename, DNI: parseInt(values.dni, 10), email: values.email, password: values.password}})
     };
 
 
@@ -170,5 +172,7 @@ const SignUpPage = () => {
         </Container>
     );
 }
+
+
 
 export default SignUpPage

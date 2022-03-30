@@ -1,0 +1,26 @@
+.call-button {
+    background-size: cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url("../../assets/makeACallBackground");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 90%;
+    max-width: 620px;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+}
+
+.call-button:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/makeACallBackground");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.button-title {
+    margin: auto;
+    font-size: 60px;
+    color: #fff;
+    font-family: sans-serif;
+}
