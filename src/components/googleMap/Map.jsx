@@ -14,7 +14,7 @@ const Map = ({coords, setCoords}) => {
         googleMapsApiKey: env.MAPS_KEY
     })
 
-    const [map, setMap] = useState()
+    const [map, setMap] = useState(null)
 
     const onLoad = useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
@@ -25,6 +25,16 @@ const Map = ({coords, setCoords}) => {
     const onUnmount = useCallback(function callback(map) {
         setMap(null)
     }, [])
+
+    const pinMarker = {
+        fillColor: '#ddd',
+        fillOpacity: 1,
+        anchor: new google.maps.Point(
+            faMapPin.icon[0] / 2,
+            faMapPin.icon[1]
+        ),
+        scale: 0.075
+    }
 
     const markerLoad = () => {
         console.log('markerLoaded')
