@@ -1,0 +1,47 @@
+.call-page-container {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 15px 30px;
+    border-radius: 6px;
+    margin: auto;
+    width: 300px;
+}
+
+.mock-map {
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    background-image: url("../../assets/ongoingCallsButtonWallpaper.jpg");
+}
+
+.separator {
+    border: 1px solid #bbb;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto 1fr;
+}
+
+.arrow {
+    text-align: center;
+    display: block;
+    color: #ee2738;
+    margin: 10px;
+}
+
+@media screen and (min-width: 900px) {
+    .call-page-container {
+        width: 900px;
+    }
+
+    .separator {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr auto 1fr;
+    }
+
+    .arrow {
+        transform: rotate(-90deg);
+        align-self: center;
+    }
+}

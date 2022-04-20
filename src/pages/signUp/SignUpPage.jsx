@@ -25,8 +25,16 @@ const SignUpPage = () => {
         dni: '',
         showPassword: false,
     });
+    const [errorMessage, setErrorMessage] = useState()
 
-    const [registerCaller, {data, loading, error}] = useMutation(REGISTER_CALLER);
+    const [registerCaller, {loading, error}] = useMutation(REGISTER_CALLER, {
+        onError: (e) => setErrorMessage(e.message),
+        onCompleted: (res) => {
+            console.log(res);
+            setErrorMessage('')
+            navigate('/')
+        }
+    });
 
     const navigate = useNavigate()
     const  loggedIn = window.localStorage.getItem('token')
@@ -57,6 +65,11 @@ const SignUpPage = () => {
         registerCaller({variables: {name: values.name, surname: values.surename, DNI: parseInt(values.dni, 10), email: values.email, password: values.password}})
     };
 
+    const labelStyle = {
+        display: 'block',
+        color: 'red',
+
+    }
 
     return (
         <Container component="main" maxWidth="sm" className={'cover-screen'}>
@@ -149,7 +162,7 @@ const SignUpPage = () => {
                         </FormControl>
 
 
-                        <label className={'validationLabel'} id='passwordLabel'>Invalid password or Email</label>
+                        <label style={labelStyle} id='passwordLabel'>{errorMessage}</label>
 
                         <Button
                             type="submit"

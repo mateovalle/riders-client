@@ -22,8 +22,20 @@ const LoginPage = () => {
         password: '',
         showPassword: false,
     });
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const [login, {data, loading, error}] = useMutation(LOGIN_CALLER)
+    const [login, {loading, error}] = useMutation(LOGIN_CALLER,{
+        onError: (e) => setErrorMessage(e.message),
+        onCompleted: (res) => {
+            console.log(res);
+            setErrorMessage('')
+            const token = res.logInCaller.token
+            window.localStorage.setItem('token', token)
+            if (token) {
+                navigate('/home')
+            }
+        },
+    })
     const navigate = useNavigate()
     const  loggedIn = window.localStorage.getItem('token')
 
@@ -56,6 +68,12 @@ const LoginPage = () => {
             window.localStorage.setItem('token', token)
             navigate('/home')
     };
+
+    const labelStyle = {
+        display: 'block',
+        color: 'red',
+
+    }
 
 
     return (
@@ -109,7 +127,7 @@ const LoginPage = () => {
                                     label="Password"
                                 />
                             </FormControl>
-                            <label className={'validationLabel'} id='passwordLabel'>Invalid password or Email</label>
+                            <label style={labelStyle} id='passwordLabel'>{errorMessage}</label>
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
@@ -140,20 +158,6 @@ const LoginPage = () => {
             </Container>
     );
 }
-
-const emailValidation = email => {
-    if (
-        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-            email,
-        )
-    ) {
-        return true;
-    }
-    if (email.trim() === '') {
-        return false;
-    }
-    return false;
-};
 
 
 export default LoginPage

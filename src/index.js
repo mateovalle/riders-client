@@ -5,15 +5,29 @@ import {
     InMemoryCache,
     ApolloProvider,
     useQuery,
-    gql
+    gql, createHttpLink, ApolloLink
 } from "@apollo/client";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const customFetch = (uri, options) => {
+    return fetch(uri, {
+        ...options,
+        headers: {
+            ...options.headers,
+            "auth-token": window.localStorage.getItem('token'),
+        }
+    });
+};
+const fetchLink = createHttpLink({
+    uri: "http://localhost:5000/caller",
+    fetch: customFetch
+});
+
 const client = new ApolloClient({
-    uri: 'http://localhost:5000/caller',
-    cache: new InMemoryCache()
+    link: ApolloLink.from([fetchLink]),
+    cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
