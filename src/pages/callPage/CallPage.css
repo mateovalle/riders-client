@@ -6,6 +6,12 @@
     width: 300px;
 }
 
+.error-message {
+    color: #ee2738;
+    margin: auto;
+    text-align: center;
+}
+
 .mock-map {
     height: 300px;
     width: 300px;

@@ -1,18 +1,19 @@
 import {
+    Alert,
     Box, Button, Checkbox, Container,
     CssBaseline,
     FormControl, FormControlLabel, Grid,
     IconButton,
     InputAdornment,
     InputLabel, Link,
-    OutlinedInput, TextField,
+    OutlinedInput, Snackbar, TextField,
     Typography
 } from "@mui/material";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import VehicleSelector from "../../components/vehicleSelector/VehicleSelector";
 import './CallPage.css';
-import Map from "../../components/googleMap/Map";
+import MapContainer from "../../components/googleMap/MapContainer";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import {ArrowDownward, ArrowForward, LocationOn} from "@mui/icons-material";
 import {useMutation} from "@apollo/client";
@@ -31,19 +32,25 @@ const CallPage = () => {
         startAddress: '',
         finishAddress: '',
     });
-    const [startCoords, setStartCoords] = useState({lat: 0, lng: 0})
-    const [finishCoords, setFinishCoords] = useState({lat: 0, lng: 0})
+    const [startCoords, setStartCoords] = useState()
+    const [finishCoords, setFinishCoords] = useState()
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
+
+    const [openSnackBar, setOpenSnackBar] = useState(false)
 
     const [createCall, {loading, error}] = useMutation(CREATE_CALL, {
         onError: (e) => setErrorMessage(e.message),
         onCompleted: (res) => {
             console.log(res);
             setErrorMessage('')
-            navigate('/home')
         }
     })
+
+    const handleCloseSnackBar = () => {
+        setOpenSnackBar(false);
+        navigate('/home')
+    };
 
     const handleChange =(prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -58,8 +65,26 @@ const CallPage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await createCall({variables: {bicycle: vehicleTypes.bicycle, motorcycle: vehicleTypes.motorcycle, car: vehicleTypes.car, van: vehicleTypes.van, priceInCents: Math.trunc(values.price * 100), description: values.description, startAddress: values.startAddress, finishAddress: values.finishAddress, startLat: startCoords.lat, startLong: startCoords.lng, finishLat: finishCoords.lat, finishLong: finishCoords.lng}})
-        //const response = await login({variables: {email: values.email, password: values.password}})
+        try {
+            const response = await createCall(
+                {variables: {
+                        bicycle: vehicleTypes.bicycle,
+                        motorcycle: vehicleTypes.motorcycle,
+                        car: vehicleTypes.car,
+                        van: vehicleTypes.van,
+                        priceInCents: Math.trunc(values.price * 100),
+                        description: values.description,
+                        startAddress: values.startAddress,
+                        finishAddress: values.finishAddress,
+                        startLat: startCoords.lat,
+                        startLong: startCoords.lng,
+                        finishLat: finishCoords.lat,
+                        finishLong: finishCoords.lng}})
+            setErrorMessage('')
+            setOpenSnackBar(true)
+        } catch (e) {
+            setErrorMessage('Invalid Input, please try again')
+        }
     };
 
 
@@ -118,7 +143,7 @@ const CallPage = () => {
                                     label="startAddress"
                                 />
                             </FormControl>
-                            <Map coords={startCoords} setCoords={setStartCoords}/>
+                            <MapContainer zoom={12} center={{lat: -34.44769900724159, lng: -58.872275516234836}} coords={startCoords} setCoords={setStartCoords}/>
                         </div>
 
                         <span className={'arrow'}> <ArrowDownward fontSize='large'/> </span>
@@ -138,12 +163,10 @@ const CallPage = () => {
                                     label="finishAddress"
                                 />
                             </FormControl>
-                            <Map coords={finishCoords} setCoords={setFinishCoords}/>
+                            <MapContainer zoom={12} center={{lat: -34.44769900724159, lng: -58.872275516234836}} coords={finishCoords} setCoords={setFinishCoords}/>
                         </div>
                     </div>
-
-
-                    <label id='passwordLabel'>{errorMessage}</label>
+                    <label id='passwordLabel' className={'error-message'}>{errorMessage}</label>
 
                     <Button
                         type="submit"
@@ -153,11 +176,12 @@ const CallPage = () => {
                     >
                         Send Call
                     </Button>
-
+                    <Snackbar open={openSnackBar} onClose={handleCloseSnackBar}>
+                        <Alert onClose={handleCloseSnackBar} severity="success" sx={{ width: '100%' }}>
+                            Call created successfully!
+                        </Alert>
+                    </Snackbar>
                 </Box>
-
-
-
             </Box>
         </div>
     )

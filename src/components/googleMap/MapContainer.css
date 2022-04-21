@@ -1,0 +1,11 @@
+.map {
+    max-width: 278px;
+    max-height: 250px;
+    display: block;
+}
+
+.map-container {
+    margin: auto;
+    width: 278px;
+    height: 250px;
+}
