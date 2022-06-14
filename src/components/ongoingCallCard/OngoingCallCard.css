@@ -8,7 +8,7 @@
     border-radius: 5px;
     min-height: 120px;
     display: grid;
-    grid-template-columns: 1fr 40px 1fr 30px;
+    grid-template-columns: 1fr 80px 1fr 30px;
     grid-template-rows: auto auto auto;
     font-family: 'Montserrat', sans-serif;
 }
@@ -88,4 +88,22 @@
     margin: auto;
     justify-content: center;
     border: 1px solid #ee2738;
+}
+
+.ongoing {
+    transition: 1s;
+}
+
+.accepted {
+    color: green;
+}
+
+.vehicle-used {
+    color: green;
+    grid-column: 2/3;
+    margin: 0 auto;
+}
+
+.arrow-right {
+    margin: auto;
 }

@@ -4,18 +4,20 @@ import {Button, Modal, Typography} from "@mui/material";
 import {useState} from "react";
 import {Box} from "@mui/system";
 import {useMutation} from "@apollo/client";
-import {REGISTER_CALLER} from "../../util/queries/sessionQueries";
 import {CANCEL_CALL} from "../../util/queries/callQueries";
+import {getVehicleIcon} from "../../util/vehicleIcons";
 
-const OngoingCallCard = ({callData, deleteCall}) => {
+const OngoingCallCard = ({callData, deleteCall, accepted, vehicleUsed}) => {
     const [openModal, setOpenModal] = useState(false);
 
-    const [cancelCall, {loading, error}] = useMutation(CANCEL_CALL, {
+    const [cancelCall] = useMutation(CANCEL_CALL, {
         onError: (e) => console.log(e.message),
         onCompleted: (res) => {
             setOpenModal(false)
         }
     });
+
+
 
     const handleCancelCall = () => {
         cancelCall({variables: {callId: callData.id}}).then(deleteCall);
@@ -43,6 +45,8 @@ const OngoingCallCard = ({callData, deleteCall}) => {
             </div>
 
             <Close className={'closeIcon'} onClick={() => setOpenModal(true)}/>
+            <span className={accepted ? 'accepted' : 'ongoing'}>{accepted ? 'Accepted' : 'Finding rider...'}</span>
+            {accepted ? <span className={'vehicle-used'}>{getVehicleIcon(vehicleUsed)}</span> : ''}
 
             <Modal
                 open={openModal}

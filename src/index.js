@@ -4,8 +4,7 @@ import {
     ApolloClient,
     InMemoryCache,
     ApolloProvider,
-    useQuery,
-    gql, createHttpLink, ApolloLink
+    createHttpLink, ApolloLink
 } from "@apollo/client";
 import './index.css';
 import App from './App';
@@ -29,6 +28,7 @@ const client = new ApolloClient({
     link: ApolloLink.from([fetchLink]),
     cache: new InMemoryCache(),
 });
+
 
 ReactDOM.render(
   <React.StrictMode>

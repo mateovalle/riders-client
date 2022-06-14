@@ -1,11 +1,11 @@
 import './RecentActivitiesList.css'
-import {AirportShuttle, ArrowForward, DirectionsCar, TwoWheeler} from "@mui/icons-material";
-import PedalBikeIcon from "@mui/icons-material/PedalBike";
+import {ArrowForward} from "@mui/icons-material";
 import {useState} from "react";
 import {Box} from "@mui/system";
 import {Modal, Typography} from "@mui/material";
 import {getRatingStars} from "../../util/ratingStars";
 import RatingSelector from "../ratingSelector/RatingSelector";
+import {getVehicleIcon} from "../../util/vehicleIcons";
 
 
 const RecentActivitiesItem = ({rideData}) => {
@@ -15,15 +15,6 @@ const RecentActivitiesItem = ({rideData}) => {
     const today = new Date();
     const hour = date.getHours() + ':' + date.getMinutes();
 
-    const getVehicleIcon = (vehicleString) => {
-        return vehicleString === 'car' ? <DirectionsCar fontSize='large'/> :
-        vehicleString === 'bicycle' ? <PedalBikeIcon fontSize='large'/> :
-        vehicleString === 'motorcycle' ? <TwoWheeler fontSize='large'/> :
-        vehicleString === 'van' ? <AirportShuttle fontSize='large'/> : ''
-    }
-
-
-
     return(
         <>
             <div className={'activity-item-container'} onClick={() => setOpenModal(true)}>
@@ -31,7 +22,7 @@ const RecentActivitiesItem = ({rideData}) => {
                     {getVehicleIcon(rideData.vehicleUsed)}
                 </div>
                 <span className={'activity-title'}>{rideData.call.startLocation.address}</span>
-                <div>
+                <div style={{width: 100}}>
                     <span className={'activity-price'}>$ {rideData.call.priceInCents/100}</span>
                     <span className={'activity-date'}>{today.toDateString() === date.toDateString() ? hour : date.toDateString()}</span>
                 </div>
