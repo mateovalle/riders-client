@@ -11,14 +11,16 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import './NavBar.css'
 import logo from '../../assets/ridersLogo.png'
 
 const NavBar = () => {
     const [token, setToken] = useState(window.localStorage.getItem('token'))
     const navigate = useNavigate()
+    const location = useLocation();
 
     useEffect(() => {
         setToken(localStorage.getItem('token'))
@@ -45,6 +47,10 @@ const NavBar = () => {
     const handleLogout = () => {
         window.localStorage.setItem('token', '')
         navigate('/')
+    }
+
+    const shouldRenderGoBackArrow = () => {
+        return location.pathname !== '/home';
     }
 
     const handleOpenNavMenu = (event) => {
@@ -76,19 +82,12 @@ const NavBar = () => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        <img src={logo} className={'nav-logo'}  alt='Riders logo'/>
+
                     </Typography>
+                    {shouldRenderGoBackArrow() ?
+                    <ArrowBackIosNewIcon fontSize={'large'} onClick={() => navigate('/home')}/> : <img src={logo} className={'nav-logo'}  alt='Riders logo'/>
+                    }
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -120,7 +119,6 @@ const NavBar = () => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        <img src={logo} className={'nav-logo'}  alt='Riders logo'/>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (

@@ -1,0 +1,22 @@
+.rating-selector-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.rating-selector-title {
+    text-align: center;
+}
+
+.rating-star {
+    color: #999999;
+    margin: 5px;
+}
+
+.rating-star-selected {
+    color: #ee2738;
+}
+
+.rate-button{
+    width: 100%;
+}

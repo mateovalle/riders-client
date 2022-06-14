@@ -7,6 +7,8 @@ import SignUpPage from "./pages/signUp/SignUpPage";
 import HomePage from "./pages/homePage/HomePage";
 import NavBar from "./components/navBar/NavBar";
 import CallPage from "./pages/callPage/CallPage";
+import OngoingCallsPage from "./pages/ongoingCalls/OngoingCallsPage";
+import HistoryPage from "./pages/historyPage/HistoryPage";
 
 const Auth = () => window.localStorage.getItem('token') ? <Outlet /> : <Navigate to={'/'} />;
 
@@ -21,6 +23,8 @@ function App() {
                   <Route element={<Auth />} >
                     <Route path='/home' element={<HomePage />} />
                     <Route path='/call' element={<CallPage />} />
+                    <Route path='/ongoingCalls' element={<OngoingCallsPage />} />
+                    <Route path='/history' element={<HistoryPage />} />
                   </Route>
               </Routes>
           </BrowserRouter>

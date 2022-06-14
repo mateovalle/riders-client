@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.ongoing-call-card-container {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border: 1px solid rgba(237,41,107,0.3);
+    margin: 15px;
+    padding: 8px;
+    border-radius: 5px;
+    min-height: 120px;
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr 30px;
+    grid-template-rows: auto auto auto;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.ongoing-call-card-addresses-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    grid-column: 1/3;
+}
+
+.ongoing-call-card-address{
+    font-size: 30px;
+    text-align: center;
+}
+
+.ongoing-call-card-vehicle-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1 / 2;
+    grid-row: 2;
+    color: #555;
+}
+
+.ongoing-call-card-price {
+    grid-row: 3;
+    text-align: center;
+    font-size: 25px;
+}
+
+.ongoing-call-card-description {
+    padding: 3px;
+    grid-row: 2 / 4;
+    grid-column: 3;
+    color: #888;
+    overflow: hidden;
+    text-align: center;
+    font-size: 18px;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    white-space: normal;
+}
+
+.closeIcon {
+    padding-top: 0;
+    grid-column: 4 / 5;
+    color: #555555;
+}
+
+.cancel-call-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding: 20px;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.modal-title {
+    text-align: center;
+    display: block;
+    width: 100%;
+    padding: 30px;
+}
+
+.modal-button {
+    width: 40px;
+    margin: auto;
+    justify-content: center;
+    border: 1px solid #ee2738;
+}

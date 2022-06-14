@@ -2,9 +2,6 @@ import HomeButton from "../../components/homeButton/HomeButton";
 import {MAKE_A_CALL_IMAGE, ONGOING_CALLS_IMAGE} from "../../util/imageRoutes";
 import RecentActivitiesList from "../../components/recentActivitiesList/RecentActivitiesList";
 import './HomePage.css'
-import {Alert, Snackbar} from "@mui/material";
-import {useState} from "react";
-
 
 const HomePage = () => {
 
@@ -18,7 +15,7 @@ const HomePage = () => {
                     <HomeButton title={'Ongoing calls'} description={'See your ongoing calls'} imageRoute={ONGOING_CALLS_IMAGE} navigateTo={'/ongoingCalls'}/>
                 </div>
 
-                <RecentActivitiesList />
+                <RecentActivitiesList itemLimit={5}/>
             </div>
         </div>
 

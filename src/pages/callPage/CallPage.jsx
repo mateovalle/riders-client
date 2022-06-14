@@ -27,20 +27,19 @@ const CallPage = () => {
         van: false,
     })
     const [values, setValues] = useState({
-        price: 0,
-        description: '',
-        startAddress: '',
-        finishAddress: '',
+        price: null,
+        description: null,
+        startAddress: null,
+        finishAddress: null,
     });
-    const [startCoords, setStartCoords] = useState()
-    const [finishCoords, setFinishCoords] = useState()
+    const [startCoords, setStartCoords] = useState(null)
+    const [finishCoords, setFinishCoords] = useState(null)
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
 
     const [openSnackBar, setOpenSnackBar] = useState(false)
 
     const [createCall, {loading, error}] = useMutation(CREATE_CALL, {
-        onError: (e) => setErrorMessage(e.message),
         onCompleted: (res) => {
             console.log(res);
             setErrorMessage('')
@@ -63,11 +62,30 @@ const CallPage = () => {
         event.preventDefault();
     };
 
+    const validateForm = () => {
+        if (!(vehicleTypes.bicycle || vehicleTypes.motorcycle || vehicleTypes.car || vehicleTypes.van)){
+            throw new Error('Please select a vehicle type')
+        }
+        if (!values.description) {
+            throw new Error('Please enter a description')
+        }
+        if (values.price <= 0) {
+            throw new Error('Please enter a valid price value')
+        }
+        if (!values.startAddress || !values.finishAddress) {
+            throw new Error('Please complete both addresses')
+        }
+        if (!startCoords || !finishCoords) {
+            throw new Error('Please select a starting point and finish point on the maps')
+        }
+    }
+
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault()
         try {
             const response = await createCall(
-                {variables: {
+                {
+                    variables: {
                         bicycle: vehicleTypes.bicycle,
                         motorcycle: vehicleTypes.motorcycle,
                         car: vehicleTypes.car,
@@ -79,11 +97,13 @@ const CallPage = () => {
                         startLat: startCoords.lat,
                         startLong: startCoords.lng,
                         finishLat: finishCoords.lat,
-                        finishLong: finishCoords.lng}})
+                        finishLong: finishCoords.lng
+                    }
+                })
             setErrorMessage('')
             setOpenSnackBar(true)
         } catch (e) {
-            setErrorMessage('Invalid Input, please try again')
+            setErrorMessage('Please select coordinates')
         }
     };
 

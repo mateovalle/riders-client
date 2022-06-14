@@ -6,6 +6,7 @@
     margin: 30px auto;
     grid-column: 1 / 2;
     grid-row: 3 / 4;
+    height: fit-content;
 }
 
 @media screen and (min-width: 900px) {
@@ -46,6 +47,10 @@
     border-radius: 50%;
     border: 1px solid #000;
     background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555555;
 }
 
 .activity-price {
@@ -59,4 +64,43 @@
     font-size: 15px;
     text-align: right;
     display: block;
+}
+
+.no-rides {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #555555;
+}
+
+.recent-activities-item-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.recent-activities-item-modal-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.recent-activities-item-modal-description {
+    color: #555555;
+    text-align: center;
+}
+
+.modal-stars {
+    color: #ee2738;
 }

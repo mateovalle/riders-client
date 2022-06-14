@@ -7,7 +7,7 @@ import {
     InputAdornment,
     InputLabel, Link,
     OutlinedInput,
-    ThemeProvider, Typography
+    Typography
 } from "@mui/material";
 import logo from '../../assets/ridersLogo.png'
 import {useEffect, useState} from "react";
@@ -24,12 +24,12 @@ const LoginPage = () => {
     });
     const [errorMessage, setErrorMessage] = useState('')
 
-    const [login, {loading, error}] = useMutation(LOGIN_CALLER,{
+    const [login] = useMutation(LOGIN_CALLER,{
         onError: (e) => setErrorMessage(e.message),
         onCompleted: (res) => {
             console.log(res);
             setErrorMessage('')
-            const token = res.logInCaller.token
+                const token = res.logInCaller.token
             window.localStorage.setItem('token', token)
             if (token) {
                 navigate('/home')
@@ -41,7 +41,7 @@ const LoginPage = () => {
 
     useEffect(() =>{
         if (loggedIn) navigate('/home')
-    }, [loggedIn])
+    }, [loggedIn, navigate])
 //hello
 
 
@@ -72,7 +72,6 @@ const LoginPage = () => {
     const labelStyle = {
         display: 'block',
         color: 'red',
-
     }
 
 
