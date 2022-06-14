@@ -1,11 +1,5 @@
 import {Star, StarHalf} from "@mui/icons-material";
 
-const renderStar = () => {
-    return <Star />
-}
-const renderHalfStar = () => {
-    return <StarHalf />
-}
 export const getRatingStars = (rating) => {
     let starList = [];
     for (let i = 1; i <= rating; i++) {
