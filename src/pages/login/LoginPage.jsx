@@ -15,6 +15,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import './LoginPage.css'
 import {useMutation} from "@apollo/client";
 import {LOGIN_CALLER} from "../../util/queries/sessionQueries";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const LoginPage = () => {
     const [values, setValues] = useState({
@@ -24,7 +25,7 @@ const LoginPage = () => {
     });
     const [errorMessage, setErrorMessage] = useState('')
 
-    const [login] = useMutation(LOGIN_CALLER,{
+    const [login, {loading}] = useMutation(LOGIN_CALLER,{
         onError: (e) => setErrorMessage(e.message),
         onCompleted: (res) => {
             console.log(res);
@@ -131,14 +132,15 @@ const LoginPage = () => {
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             />
-                            <Button
+                            <LoadingButton
                                 type="submit"
+                                loading={loading}
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign In
-                            </Button>
+                            </LoadingButton>
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="/sign-up" variant="body2">

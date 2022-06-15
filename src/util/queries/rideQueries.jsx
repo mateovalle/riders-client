@@ -34,6 +34,7 @@ export const GET_CALLER_ACTIVE_RIDES = gql`
                 }
             }
             vehicleUsed,
+            riderArrivedStartLocation,
         }
     }
 `;

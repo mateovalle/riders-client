@@ -3,6 +3,7 @@ import './RecentActivitiesList.css'
 import {useNavigate} from "react-router-dom";
 import {useQuery} from "@apollo/client";
 import {GET_CALLER_RECORD} from "../../util/queries/callQueries";
+import {CircularProgress} from "@mui/material";
 
 const RecentActivitiesList = ({itemLimit}) => {
     const navigate = useNavigate()
@@ -11,7 +12,7 @@ const RecentActivitiesList = ({itemLimit}) => {
         fetchPolicy: "cache-and-network",
     });
 
-    if (loading) return <span>loading...</span>
+    if (loading) return <CircularProgress color='primary'/>
     return(
         <div className={'activities-list-container'}>
             <div className={'activities-list-header'}>

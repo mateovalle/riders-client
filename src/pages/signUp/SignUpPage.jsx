@@ -11,6 +11,7 @@ import {
     Typography
 } from "@mui/material";
 import logo from "../../assets/ridersLogo.png";
+import LoadingButton from '@mui/lab/LoadingButton';
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useMutation} from "@apollo/client";
 import {REGISTER_CALLER} from "../../util/queries/sessionQueries";
@@ -164,14 +165,15 @@ const SignUpPage = () => {
 
                         <label style={labelStyle} id='passwordLabel'>{errorMessage}</label>
 
-                        <Button
+                        <LoadingButton
                             type="submit"
                             fullWidth
+                            loading={loading}
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Sign Up
-                        </Button>
+                        </LoadingButton>
                         <Grid container>
                             <Grid item>
                                 <Link href="/" variant="body2">

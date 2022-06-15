@@ -13,7 +13,7 @@ const RecentActivitiesItem = ({rideData}) => {
 
     const date = new Date(rideData.finishDate);
     const today = new Date();
-    const hour = date.getHours() + ':' + date.getMinutes();
+    const hour = date.getMinutes() >= 10 ? (date.getHours() + ':' + date.getMinutes()) : (date.getHours() + ':0' + date.getMinutes());
 
     return(
         <>

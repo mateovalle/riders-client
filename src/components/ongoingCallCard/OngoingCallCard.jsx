@@ -1,13 +1,13 @@
 import {PedalBike, AirportShuttle, DirectionsCar, TwoWheeler, ArrowRightAlt, Close} from "@mui/icons-material";
 import './OngoingCallCard.css'
-import {Button, Modal, Typography} from "@mui/material";
+import {Button, CircularProgress, LinearProgress, Modal, Typography} from "@mui/material";
 import {useState} from "react";
 import {Box} from "@mui/system";
 import {useMutation} from "@apollo/client";
 import {CANCEL_CALL} from "../../util/queries/callQueries";
 import {getVehicleIcon} from "../../util/vehicleIcons";
 
-const OngoingCallCard = ({callData, deleteCall, accepted, vehicleUsed}) => {
+const OngoingCallCard = ({callData, deleteCall, accepted, vehicleUsed, riderArrivedStartLocation}) => {
     const [openModal, setOpenModal] = useState(false);
 
     const [cancelCall] = useMutation(CANCEL_CALL, {
@@ -45,7 +45,8 @@ const OngoingCallCard = ({callData, deleteCall, accepted, vehicleUsed}) => {
             </div>
 
             <Close className={'closeIcon'} onClick={() => setOpenModal(true)}/>
-            <span className={accepted ? 'accepted' : 'ongoing'}>{accepted ? 'Accepted' : 'Finding rider...'}</span>
+            {accepted ? <span className='accepted'>{riderArrivedStartLocation ? 'Rider arrived at ' + callData.startLocation.address : 'Accepted'}</span> : (<span className='ongoing'>Finding rider... <LinearProgress color="primary" />
+</span>)}
             {accepted ? <span className={'vehicle-used'}>{getVehicleIcon(vehicleUsed)}</span> : ''}
 
             <Modal

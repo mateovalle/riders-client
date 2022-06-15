@@ -23,7 +23,7 @@ const OngoingCallsPage = () => {
             })}
             {data2.getCallerActiveRides.map((data) => {
                 console.log(data.vehicleUsed)
-                return <OngoingCallCard callData={data.call} key={data.id} accepted={true} vehicleUsed={data.vehicleUsed}/>
+                return <OngoingCallCard callData={data.call} key={data.id} accepted={true} vehicleUsed={data.vehicleUsed} riderArrivedStartLocation={data.riderArrivedStartLocation}/>
             })}
 
 

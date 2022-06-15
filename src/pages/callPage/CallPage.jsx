@@ -18,6 +18,7 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import {ArrowDownward, ArrowForward, LocationOn} from "@mui/icons-material";
 import {useMutation} from "@apollo/client";
 import {CREATE_CALL} from "../../util/queries/callQueries";
+import {LoadingButton} from "@mui/lab";
 
 const CallPage = () => {
     const [vehicleTypes, setVehicleTypes] = useState({
@@ -188,14 +189,15 @@ const CallPage = () => {
                     </div>
                     <label id='passwordLabel' className={'error-message'}>{errorMessage}</label>
 
-                    <Button
+                    <LoadingButton
                         type="submit"
                         fullWidth
+                        loading={loading}
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
                         Send Call
-                    </Button>
+                    </LoadingButton>
                     <Snackbar open={openSnackBar} onClose={handleCloseSnackBar}>
                         <Alert onClose={handleCloseSnackBar} severity="success" sx={{ width: '100%' }}>
                             Call created successfully!
