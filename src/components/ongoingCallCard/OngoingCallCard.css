@@ -97,6 +97,7 @@
 .accepted {
     color: green;
     text-align: center;
+    grid-column: 2/3;
 }
 
 .vehicle-used {
