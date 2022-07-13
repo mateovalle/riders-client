@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {
-    Box, Button, Checkbox,
+    Box,
     Container,
     CssBaseline,
-    FormControl, FormControlLabel, Grid, IconButton,
+    FormControl, Grid, IconButton,
     InputAdornment,
     InputLabel, Link,
     OutlinedInput,
