@@ -12,9 +12,9 @@ export const createPayment = async (callerId, saldo) => {
             }
         ],
         back_urls: {
-            failure: "http://localhost:3000/home",
-            pending: "http://localhost:3000/home",
-            success: "http://localhost:3000/home"
+            failure: "localhost:3000/home",
+            pending: "localhost:3000/home",
+            success: "localhost:3000/home"
         },
         external_reference: callerId,
         auto_return: "approved",
@@ -23,7 +23,7 @@ export const createPayment = async (callerId, saldo) => {
     const payment = await axios.post(url, body, {
         headers: {
             "Content-Type": "application/json",
-            Authorization: 'api key'
+            Authorization: `Bearer TEST-6309621162632226-071303-e64ef5b42a7349e43c3402b2fa3e72a6-327024543`
         }
     });
 
