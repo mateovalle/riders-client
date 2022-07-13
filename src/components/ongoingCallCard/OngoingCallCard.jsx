@@ -45,7 +45,7 @@ const OngoingCallCard = ({callData, deleteCall, rideId, vehicleUsed, riderArrive
                 <span>{callData.description}</span>
             </div>
 
-            {rideId ? <Chat className={'chatIcon'} fontSize={'large'} onClick={() => navigate(/chat/ + rideId)}/> : <Close className={'closeIcon'} onClick={() => setOpenModal(true)}/>}
+            {rideId ? <Chat className={'chatIcon'} fontSize={'large'} onClick={() => navigate(/chat/ + rideId)}/> : <span className={'closeIcon'} onClick={() => setOpenModal(true)}>cancel</span>}
             {rideId ? <span className='accepted'>{riderArrivedStartLocation ? 'Rider arrived at ' + callData.startLocation.address : 'Accepted'}</span> : (<span className='ongoing'>Finding rider... <LinearProgress color="primary" />
 </span>)}
             {rideId ? <span className={'vehicle-used'}>{getVehicleIcon(vehicleUsed)}</span> : ''}

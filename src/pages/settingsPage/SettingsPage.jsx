@@ -38,19 +38,24 @@ const SettingsPage = () => {
         window.location.href = res.init_point;
     }
 
+    const handleLogout = () => {
+        window.localStorage.clear()
+        navigate('/')
+    }
+
     if (loadingCallerData || loadingNotifications) return <CircularProgress style={{position: 'absolute', top: '100px', left: '50%'}} color='primary' />
     return(
         <div className={'settings-container'}>
-            <h2>{callerData.name} {callerData.surname}</h2>
+            <h2 className={'name'}>{callerData.name} {callerData.surname}</h2>
             <h3>DNI: {callerData.DNI}</h3>
             <h3>Balance: ${callerData.balanceInCents}</h3>
 
-            <div>
-                <span>I want to receive notifications via email</span>
-                <Switch checked={notifications} onClick={() => handleToggleNotifications()}/>
+            <div className={'switch-group'}>
+                <span className={'switch-text'}>I want to receive notifications via email     </span>
+                <Switch className={'switch'} checked={notifications} onClick={() => handleToggleNotifications()}/>
             </div>
             <div>
-                <span>Add money: </span>
+                <span>Add money:    $</span>
                 <TextField
                     value={saldoACargar}
                     onChange={(e) => setSaldoACargar(e.target.value)}
@@ -59,6 +64,7 @@ const SettingsPage = () => {
                 />
                 <Button onClick={() => handleConfirm()}>Confirm</Button>
             </div>
+            <Button onClick={() => handleLogout()}>Log out</Button>
         </div>
     )
 }
