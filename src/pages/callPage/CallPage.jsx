@@ -15,12 +15,14 @@ import VehicleSelector from "../../components/vehicleSelector/VehicleSelector";
 import './CallPage.css';
 import MapContainer from "../../components/googleMap/MapContainer";
 import { Wrapper } from "@googlemaps/react-wrapper";
-import {ArrowDownward, ArrowForward, LocationOn} from "@mui/icons-material";
+import {ArrowDownward, ArrowForward, LocationOn, Star} from "@mui/icons-material";
 import {useMutation} from "@apollo/client";
 import {CREATE_CALL} from "../../util/queries/callQueries";
 import {LoadingButton} from "@mui/lab";
+import '../../components/ratingSelector/RatingSelector.css'
 
 const CallPage = () => {
+    const [rating, setRating] = useState(0)
     const [vehicleTypes, setVehicleTypes] = useState({
         bicycle: false,
         motorcycle: false,
@@ -63,6 +65,12 @@ const CallPage = () => {
         event.preventDefault();
     };
 
+    const getRatingStarClassName = (starNumber) => {
+        let className = 'rating-star';
+        className += rating >= starNumber ? ' rating-star-selected' : '';
+        return className;
+    }
+
     const validateForm = () => {
         if (!(vehicleTypes.bicycle || vehicleTypes.motorcycle || vehicleTypes.car || vehicleTypes.van)){
             throw new Error('Please select a vehicle type')
@@ -87,6 +95,7 @@ const CallPage = () => {
             const response = await createCall(
                 {
                     variables: {
+                        minRiderRatingStars: rating,
                         bicycle: vehicleTypes.bicycle,
                         motorcycle: vehicleTypes.motorcycle,
                         car: vehicleTypes.car,
@@ -122,6 +131,21 @@ const CallPage = () => {
                 <Typography component="h1" variant="h3">
                     Create a call
                 </Typography>
+
+                <br/>
+                <Typography component="h4" variant="h5" color={'primary'}>
+                    Rider rating
+                </Typography>
+                <Box className={'rating-selector-container'}>
+                    <div>
+                        <Star className={getRatingStarClassName(1)} onClick={() => setRating(1)}/>
+                        <Star className={getRatingStarClassName(2)} onClick={() => setRating(2)}/>
+                        <Star className={getRatingStarClassName(3)} onClick={() => setRating(3)}/>
+                        <Star className={getRatingStarClassName(4)} onClick={() => setRating(4)}/>
+                        <Star className={getRatingStarClassName(5)} onClick={() => setRating(5)}/>
+                    </div>
+                </Box>
+
                 <VehicleSelector vehicleTypes={vehicleTypes} toggleVehicleType={toggleVehicleType}/>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <FormControl fullWidth margin="normal" sx={{ mt: 1}} variant="outlined" >

@@ -1,0 +1,10 @@
+.notifications-button-container {
+    margin-right: 30px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.notifications-button-container:hover {
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+}

@@ -2,3 +2,12 @@
     height: 50px;
     filter: grayscale(100%) brightness(500%);
 }
+
+.balance {
+    margin-left: 100px;
+    font-size: 30px;
+}
+
+.balance:before{
+    content: '$';
+}

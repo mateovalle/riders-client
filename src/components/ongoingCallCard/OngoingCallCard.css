@@ -8,7 +8,7 @@
     border-radius: 5px;
     min-height: 120px;
     display: grid;
-    grid-template-columns: 1fr 120px 1fr 30px;
+    grid-template-columns: 1fr 120px 1fr 50px;
     grid-template-rows: auto auto auto;
     font-family: 'Montserrat', sans-serif;
 }
@@ -59,6 +59,19 @@
     padding-top: 0;
     grid-column: 4 / 5;
     color: #555555;
+}
+
+.chatIcon {
+    grid-column: 4/5;
+    grid-row: 2/3;
+    color: #ee2738;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.chatIcon:hover {
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.13);
 }
 
 .cancel-call-modal {

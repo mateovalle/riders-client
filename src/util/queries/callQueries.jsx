@@ -1,8 +1,9 @@
 import {gql} from "@apollo/client";
 
 export const CREATE_CALL = gql`
-  mutation CreateCall($bicycle: Boolean!, $motorcycle: Boolean!, $car: Boolean!, $van: Boolean!, $priceInCents: Int!, $description: String!, $startAddress: String!, $finishAddress: String!, $startLat: Float!, $startLong: Float!, $finishLat: Float!, $finishLong: Float!) {
+  mutation CreateCall($minRiderRatingStars: Float!, $bicycle: Boolean!, $motorcycle: Boolean!, $car: Boolean!, $van: Boolean!, $priceInCents: Int!, $description: String!, $startAddress: String!, $finishAddress: String!, $startLat: Float!, $startLong: Float!, $finishLat: Float!, $finishLong: Float!) {
     createCall(input: {
+            minRiderRatingStars: $minRiderRatingStars,
             bicycle: $bicycle,
             motorcycle: $motorcycle,
             car: $car,

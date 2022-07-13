@@ -26,3 +26,30 @@ export const LOGIN_CALLER = gql`
         }
   }
 `;
+
+export const GET_CALLER = gql`
+    query GetCaller{
+        getCaller{
+            id
+            name
+            surname
+            DNI
+            email{
+                address
+            }
+            rating{
+                stars
+            }
+            balanceInCents
+            emailNotifications
+        }
+    }
+`;
+
+export const EMAIL_NOTIFICATIONS = gql`
+    mutation SetCallerEmailNotifications($emailNotifications: Boolean!) {
+        setCallerEmailNotifications(input: {
+            emailNotifications: $emailNotifications,
+        })
+    }
+`;

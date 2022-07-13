@@ -1,4 +1,4 @@
-import {PedalBike, AirportShuttle, DirectionsCar, TwoWheeler, ArrowRightAlt, Close} from "@mui/icons-material";
+import {PedalBike, AirportShuttle, DirectionsCar, TwoWheeler, ArrowRightAlt, Close, Chat} from "@mui/icons-material";
 import './OngoingCallCard.css'
 import {Button, CircularProgress, LinearProgress, Modal, Typography} from "@mui/material";
 import {useState} from "react";
@@ -6,9 +6,12 @@ import {Box} from "@mui/system";
 import {useMutation} from "@apollo/client";
 import {CANCEL_CALL} from "../../util/queries/callQueries";
 import {getVehicleIcon} from "../../util/vehicleIcons";
+import ChatRoom from "../../pages/chatRoom/ChatRoom";
+import {useNavigate} from "react-router-dom";
 
-const OngoingCallCard = ({callData, deleteCall, accepted, vehicleUsed, riderArrivedStartLocation}) => {
+const OngoingCallCard = ({callData, deleteCall, rideId, vehicleUsed, riderArrivedStartLocation}) => {
     const [openModal, setOpenModal] = useState(false);
+    const navigate = useNavigate()
 
     const [cancelCall] = useMutation(CANCEL_CALL, {
         onError: (e) => console.log(e.message),
@@ -16,8 +19,6 @@ const OngoingCallCard = ({callData, deleteCall, accepted, vehicleUsed, riderArri
             setOpenModal(false)
         }
     });
-
-
 
     const handleCancelCall = () => {
         cancelCall({variables: {callId: callData.id}}).then(deleteCall);
@@ -44,10 +45,10 @@ const OngoingCallCard = ({callData, deleteCall, accepted, vehicleUsed, riderArri
                 <span>{callData.description}</span>
             </div>
 
-            {accepted ? '' : <Close className={'closeIcon'} onClick={() => setOpenModal(true)}/>}
-            {accepted ? <span className='accepted'>{riderArrivedStartLocation ? 'Rider arrived at ' + callData.startLocation.address : 'Accepted'}</span> : (<span className='ongoing'>Finding rider... <LinearProgress color="primary" />
+            {rideId ? <Chat className={'chatIcon'} fontSize={'large'} onClick={() => navigate(/chat/ + rideId)}/> : <Close className={'closeIcon'} onClick={() => setOpenModal(true)}/>}
+            {rideId ? <span className='accepted'>{riderArrivedStartLocation ? 'Rider arrived at ' + callData.startLocation.address : 'Accepted'}</span> : (<span className='ongoing'>Finding rider... <LinearProgress color="primary" />
 </span>)}
-            {accepted ? <span className={'vehicle-used'}>{getVehicleIcon(vehicleUsed)}</span> : ''}
+            {rideId ? <span className={'vehicle-used'}>{getVehicleIcon(vehicleUsed)}</span> : ''}
 
             <Modal
                 open={openModal}
